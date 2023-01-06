@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="./favicon_io/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hi, I'm Dani</title>
+    <script type="module" crossorigin src="./assets/index.3bc384e3.js"></script>
+    <link rel="stylesheet" href="./assets/index.72de8dbb.css">
+  </head>
+  <body>
+    <div class="animated-background"></div>
+    <div id="app"></div>
+  </body>
+  <script src="./background/animatedLines.js"></script>
+  <style>
+    body {
+      --color-bg: #0e0e0f;
+      --color-bg-2: #242635;
+      /* --color-bg-3: hsl(0deg 80% 50%); */
+      /* --color-bg-3: #dc2c5a; */
+      --color-bg-3: #800180;
+      --gradient-margin: 800px;
+    }
+
+    .animated-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: calc(100% + var(--gradient-margin));
+      background: radial-gradient(
+        ellipse at 500% 0%,
+        var(--color-bg) 50%,
+        var(--color-bg-2) 80%,
+        var(--color-bg-3) 100%
+      );
+      z-index: -1;
+      transform: translateY(calc(var(--gradient-margin) * -1));
+    }
+  </style>
+</html>
