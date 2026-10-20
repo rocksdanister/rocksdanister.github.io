@@ -59,6 +59,43 @@
   resize();
   if (!reduceMotion) loop();
 
+  /* ---- Theme toggle: follows the system until the visitor picks one ---- */
+  var root = document.documentElement;
+  var toggle = document.getElementById("theme-toggle");
+  var systemDark = matchMedia("(prefers-color-scheme: dark)");
+
+  function currentTheme() {
+    return root.dataset.theme || (systemDark.matches ? "dark" : "light");
+  }
+  function syncToggle() {
+    var next = currentTheme() === "dark" ? "light" : "dark";
+    toggle.setAttribute("aria-label", "Switch to " + next + " theme");
+    toggle.title = "Switch to " + next + " theme";
+  }
+
+  function applyTheme(next) {
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem("theme", next);
+    } catch (e) {}
+    syncToggle();
+    draw();
+  }
+
+  toggle.addEventListener("click", function () {
+    var next = currentTheme() === "dark" ? "light" : "dark";
+    /* Cross-fade the whole page where supported, otherwise switch instantly */
+    if (document.startViewTransition && !reduceMotion) {
+      document.startViewTransition(function () {
+        applyTheme(next);
+      });
+    } else {
+      applyTheme(next);
+    }
+  });
+  systemDark.addEventListener("change", syncToggle);
+  syncToggle();
+
   /* ---- Cards with a video: play on hover / keyboard focus ---- */
   document.querySelectorAll(".app[data-video]").forEach(function (card) {
     var video = card.querySelector("video");
