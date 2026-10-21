@@ -4,10 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark" />
-    <title>Hi, I’m Dani</title>
+    <title>Dani (rocksdanister)</title>
     <meta name="description" content="I make fun software and stuff." />
     <!-- Icon sprite (Font Awesome Free, CC BY 4.0) -->
-    <link rel="icon" href="assets/favicon.ico" sizes="any" />
+    <link rel="icon" href="assets/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
     <script>
       /* Apply a saved theme before first paint to avoid a flash */
       try {
@@ -15,7 +17,7 @@
         if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
       } catch (e) {}
     </script>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles/styles.css" />
   </head>
   <body>
     <!-- Icon sprite (Font Awesome Free, CC BY 4.0) -->
@@ -62,14 +64,18 @@
 
     <main>
       <div class="pic">
-        <span aria-hidden="true">D</span>
-        <img
-          src="https://avatars.githubusercontent.com/rocksdanister"
-          alt="rocksdanister profile picture"
-          width="88"
-          height="88"
-          onerror="this.remove()"
-        />
+        <span aria-hidden="true">R</span>
+        <picture>
+          <source media="(prefers-reduced-motion: reduce)" srcset="assets/avatar-still.webp" />
+          <img
+            src="assets/avatar.webp"
+            alt="rocksdanister profile picture"
+            width="384"
+            height="384"
+            decoding="async"
+            onerror="this.remove()"
+          />
+        </picture>
       </div>
       <h1>Hi, I’m Dani</h1>
       <p class="sub">I make fun software and stuff</p>
@@ -132,7 +138,7 @@
       </section>
     </main>
 
-    <script src="script.js"></script>
+    <script src="scripts/script.js"></script>
     <script data-goatcounter="https://profile.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   </body>
 </html>

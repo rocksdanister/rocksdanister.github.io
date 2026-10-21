@@ -5,13 +5,16 @@
   --muted: #5f5f66;
   --line: #e2e2e6;
   --hover: #f3f3f5;
-  --card: rgba(255, 255, 255, 0.86);
-  --glow: rgba(70, 80, 120, 0.22);
+  --card: #ffffff; /* solid, so the waves never show through the cards */
+  --glow: rgba(70, 80, 120, 0.12);
   --w1: rgba(110, 110, 125, 0.1); /* wave shades */
   --w2: rgba(110, 110, 125, 0.14);
   --w3: rgba(110, 110, 125, 0.2);
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.1);
   --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.08), 0 16px 40px rgba(0, 0, 0, 0.16);
+  --btn-bg: #ffffff; /* solid, so the waves never show through */
+  --btn-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.08);
+  --btn-shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.08), 0 6px 16px rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -19,35 +22,41 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --glow: rgba(190, 200, 255, 0.24);
+    --glow: rgba(190, 200, 255, 0.14);
     --bg: #0e0e0f;
     --ink: #f2f2f4;
     --muted: #a0a0aa;
     --line: #2a2a30;
     --hover: #1a1a1e;
-    --card: rgba(14, 14, 15, 0.86);
+    --card: #121214;
     --w1: rgba(255, 255, 255, 0.04);
     --w2: rgba(255, 255, 255, 0.07);
     --w3: rgba(255, 255, 255, 0.11);
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 30px rgba(0, 0, 0, 0.55);
     --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.6), 0 18px 44px rgba(0, 0, 0, 0.65);
+    --btn-bg: #151518;
+    --btn-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.45);
+    --btn-shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.6), 0 6px 16px rgba(0, 0, 0, 0.55);
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --glow: rgba(190, 200, 255, 0.24);
+  --glow: rgba(190, 200, 255, 0.14);
   --bg: #0e0e0f;
   --ink: #f2f2f4;
   --muted: #a0a0aa;
   --line: #2a2a30;
   --hover: #1a1a1e;
-  --card: rgba(14, 14, 15, 0.86);
+  --card: #121214;
   --w1: rgba(255, 255, 255, 0.04);
   --w2: rgba(255, 255, 255, 0.07);
   --w3: rgba(255, 255, 255, 0.11);
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 30px rgba(0, 0, 0, 0.55);
   --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.6), 0 18px 44px rgba(0, 0, 0, 0.65);
+  --btn-bg: #151518;
+  --btn-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.45);
+  --btn-shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.6), 0 6px 16px rgba(0, 0, 0, 0.55);
   color-scheme: dark;
 }
 
@@ -146,7 +155,7 @@ h1 {
 }
 
 .sub {
-  margin: 0.25rem 0 1rem;
+  margin: 0.25rem 0 0.5rem;
   color: var(--muted);
   font-size: clamp(1.15rem, min(1.4vw, 2.4dvh), 1.8rem);
 }
@@ -168,7 +177,7 @@ h1 {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  margin: 0.75rem 0 clamp(1.75rem, min(3vw, 4.5dvh), 3rem);
+  margin: 0.5rem 0 clamp(1.75rem, min(3vw, 4.5dvh), 3rem);
 }
 .btn {
   display: grid;
@@ -177,10 +186,13 @@ h1 {
   height: clamp(44px, min(3.2vw, 5.5dvh), 64px);
   border: 1px solid var(--line);
   border-radius: 8px;
+  background: var(--btn-bg);
+  box-shadow: var(--btn-shadow);
 }
 .btn:hover {
   background: var(--hover);
   border-color: var(--muted);
+  box-shadow: var(--btn-shadow-hover);
 }
 
 .ico {
@@ -203,13 +215,15 @@ h1 {
   padding: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: var(--card);
+  background: var(--btn-bg);
+  box-shadow: var(--btn-shadow);
   color: var(--ink);
   cursor: pointer;
 }
 .theme-toggle:hover {
   background: var(--hover);
   border-color: var(--muted);
+  box-shadow: var(--btn-shadow-hover);
 }
 .theme-toggle:focus-visible {
   outline: 2px solid var(--ink);
@@ -267,7 +281,7 @@ h1 {
 .app:focus-visible {
   transform: scale(1.03);
   border-color: var(--glow);
-  box-shadow: 0 0 18px 2px var(--glow), var(--shadow-hover);  /* was: ..., 0 10px 30px rgba(0,0,0,.16) */
+  box-shadow: 0 0 14px 0 var(--glow), var(--shadow-hover);  /* was: ..., 0 10px 30px rgba(0,0,0,.16) */
   position: relative;
   z-index: 2;
 }
