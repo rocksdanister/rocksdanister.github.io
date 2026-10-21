@@ -103,7 +103,8 @@ a:focus-visible {
   position: fixed;
   inset: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  height: 100lvh; /* largest viewport: stays put while mobile browser bars show/hide on scroll */
   z-index: 0;
   pointer-events: none;
 }
@@ -304,6 +305,12 @@ h1 {
 .app:hover .art,
 .app:focus-visible .art {
   filter: none;
+}
+/* Touch screens can't hover, so show the colour artwork (and static poster) straight away */
+@media (hover: none) {
+  .art {
+    filter: none;
+  }
 }
 
 .app > div:not(.media) {

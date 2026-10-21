@@ -15,8 +15,11 @@
 
   function resize() {
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = document.documentElement.clientWidth || innerWidth;
-    H = innerHeight;
+    var nw = document.documentElement.clientWidth || innerWidth;
+    var nh = canvas.clientHeight || innerHeight; /* CSS uses the largest viewport, so bar show/hide doesn't change it */
+    if (nw === W && nh === H && canvas.width === Math.ceil(W * dpr)) return;
+    W = nw;
+    H = nh;
     canvas.width = Math.ceil(W * dpr);
     canvas.height = Math.ceil(H * dpr);
     ctx.setTransform(canvas.width / W, 0, 0, canvas.height / H, 0, 0); /* map CSS px exactly onto the rounded-up buffer */
@@ -104,7 +107,7 @@
     if (!video) return;
 
     function play() {
-      if (reduceMotion) return;
+      if (reduceMotion || matchMedia("(hover: none)").matches) return; /* touch: keep the poster, skip the 1 MB video */
       var p = video.play();
       if (p && p.catch) p.catch(function () {});
     }
