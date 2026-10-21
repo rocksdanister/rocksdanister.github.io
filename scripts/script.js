@@ -15,11 +15,11 @@
 
   function resize() {
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = innerWidth;
+    W = document.documentElement.clientWidth || innerWidth;
     H = innerHeight;
-    canvas.width = W * dpr;
-    canvas.height = H * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    canvas.width = Math.ceil(W * dpr);
+    canvas.height = Math.ceil(H * dpr);
+    ctx.setTransform(canvas.width / W, 0, 0, canvas.height / H, 0, 0); /* map CSS px exactly onto the rounded-up buffer */
     draw();
   }
 
@@ -28,12 +28,14 @@
     freq /= Math.max(1, W / 1400);
     ctx.beginPath();
     ctx.moveTo(0, H);
-    for (var x = 0; x <= W; x += 10) {
+    /* Always end exactly at x = W, otherwise the last <10px slice drops to the bottom edge */
+    for (var x = 0; ; x = Math.min(x + 10, W)) {
       var y =
         H * base +
         Math.sin(x * freq + t * speed + phase) * amp +
         Math.sin(x * freq * 2.1 - t * speed * 0.6 + phase) * amp * 0.35;
       ctx.lineTo(x, y);
+      if (x >= W) break;
     }
     ctx.lineTo(W, H);
     ctx.closePath();
