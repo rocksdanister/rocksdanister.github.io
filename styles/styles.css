@@ -266,6 +266,7 @@ h1 {
 }
 
 .app {
+  position: relative;
   display: block;
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -287,12 +288,16 @@ h1 {
 }
 
 /* Artwork (image or video): greyscale until hovered */
+.media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-bottom: 1px solid var(--line);
+}
 .art {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 100%;
   object-fit: cover;
-  border-bottom: 1px solid var(--line);
   filter: grayscale(1);
   transition: filter 0.2s ease;
 }
@@ -301,11 +306,12 @@ h1 {
   filter: none;
 }
 
-.app > div {
+.app > div:not(.media) {
   padding: 1rem 1.1rem 1.15rem;
 }
 .app b {
   display: block;
+  margin-bottom: 0.2rem;
   font-size: clamp(1.2rem, min(1.5vw, 2.6dvh), 1.9rem);
 }
 .app span {
@@ -313,14 +319,19 @@ h1 {
   font-size: clamp(1rem, min(1.1vw, 2dvh), 1.4rem);
 }
 
+/* Role badge: pinned to the bottom-left of the artwork */
 .role {
-  display: block;
-  width: fit-content;
-  margin: 0.4rem 0 0.6rem;
+  position: absolute;
+  bottom: 0.75rem;
+  left: 0.75rem;
   padding: 2px 10px;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 6px;
+  background: var(--card);
+  box-shadow: var(--btn-shadow);
   font-style: normal;
+  font-weight: 500;
+  white-space: nowrap;
   font-size: clamp(0.8rem, min(0.9vw, 1.7dvh), 1.1rem);
   color: var(--muted);
 }
@@ -344,12 +355,12 @@ h1 {
     flex-direction: column;
     min-height: 0;
   }
-  .art {
+  .media {
     flex: 1 1 0;
     min-height: 0;
     aspect-ratio: auto;
   }
-  .app > div {
+  .app > div:not(.media) {
     flex: none;
   }
 }
