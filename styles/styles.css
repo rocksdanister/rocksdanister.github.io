@@ -186,8 +186,10 @@ h1 {
   border-radius: 6px;
   font-size: clamp(1rem, min(1.1vw, 2dvh), 1.4rem);
 }
-.mail:hover {
-  background: var(--hover);
+@media (hover: hover) {
+  .mail:hover {
+    background: var(--hover);
+  }
 }
 
 .btns {
@@ -206,10 +208,12 @@ h1 {
   background: var(--btn-bg);
   box-shadow: var(--btn-shadow);
 }
-.btn:hover {
-  background: var(--hover);
-  border-color: var(--muted);
-  box-shadow: var(--btn-shadow-hover);
+@media (hover: hover) {
+  .btn:hover {
+    background: var(--hover);
+    border-color: var(--muted);
+    box-shadow: var(--btn-shadow-hover);
+  }
 }
 
 .ico {
@@ -237,10 +241,12 @@ h1 {
   color: var(--ink);
   cursor: pointer;
 }
-.theme-toggle:hover {
-  background: var(--hover);
-  border-color: var(--muted);
-  box-shadow: var(--btn-shadow-hover);
+@media (hover: hover) {
+  .theme-toggle:hover {
+    background: var(--hover);
+    border-color: var(--muted);
+    box-shadow: var(--btn-shadow-hover);
+  }
 }
 .theme-toggle:focus-visible {
   outline: 2px solid var(--ink);
@@ -295,13 +301,20 @@ h1 {
     border-color 0.2s ease;
      box-shadow: var(--shadow);
 }
-.app:hover,
 .app:focus-visible {
   transform: scale(1.03);
   border-color: var(--glow);
-  box-shadow: 0 0 14px 0 var(--glow), var(--shadow-hover);  /* was: ..., 0 10px 30px rgba(0,0,0,.16) */
-  position: relative;
+  box-shadow: 0 0 14px 0 var(--glow), var(--shadow-hover);
   z-index: 2;
+}
+/* Hover effects only where a pointer can hover (touch screens would keep them stuck after a tap) */
+@media (hover: hover) {
+  .app:hover {
+    transform: scale(1.03);
+    border-color: var(--glow);
+    box-shadow: 0 0 14px 0 var(--glow), var(--shadow-hover);
+    z-index: 2;
+  }
 }
 
 /* Artwork (image or video): greyscale until hovered */
@@ -318,9 +331,13 @@ h1 {
   filter: grayscale(1);
   transition: filter 0.2s ease;
 }
-.app:hover .art,
 .app:focus-visible .art {
   filter: none;
+}
+@media (hover: hover) {
+  .app:hover .art {
+    filter: none;
+  }
 }
 /* Touch screens can't hover, so show the colour artwork (and static poster) straight away */
 @media (hover: none) {
