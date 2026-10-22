@@ -73,7 +73,7 @@
             width="384"
             height="384"
             decoding="async"
-            onerror="this.remove()"
+            onerror="this.closest('.pic').classList.add('fail'); this.remove()"
           />
         </picture>
       </div>

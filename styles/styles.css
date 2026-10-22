@@ -5,6 +5,8 @@
   --muted: #5f5f66;
   --line: #e2e2e6;
   --hover: #f3f3f5;
+  --pic-border: #c4c4cc;
+  --pic-bg: #dcdce2; /* profile picture backdrop: greyer than the page so the white eyes stand out */
   --card: #ffffff; /* solid, so the waves never show through the cards */
   --glow: rgba(70, 80, 120, 0.12);
   --w1: rgba(110, 110, 125, 0.1); /* wave shades */
@@ -28,6 +30,8 @@
     --muted: #a0a0aa;
     --line: #2a2a30;
     --hover: #1a1a1e;
+    --pic-border: #2a2a30;
+    --pic-bg: #1a1a1e;
     --card: #121214;
     --w1: rgba(255, 255, 255, 0.04);
     --w2: rgba(255, 255, 255, 0.07);
@@ -48,6 +52,8 @@
   --muted: #a0a0aa;
   --line: #2a2a30;
   --hover: #1a1a1e;
+  --pic-border: #2a2a30;
+  --pic-bg: #1a1a1e;
   --card: #121214;
   --w1: rgba(255, 255, 255, 0.04);
   --w2: rgba(255, 255, 255, 0.07);
@@ -134,11 +140,18 @@ main {
   margin: 0 auto 1rem;
   border-radius: 50%;
   overflow: hidden;
-  background: var(--hover);
-  border: 1px solid var(--line);
+  background: var(--pic-bg);
+  border: 1px solid var(--pic-border);
+  box-shadow: var(--btn-shadow);
   color: var(--muted);
   font-size: 2.2rem;
   font-weight: 600;
+}
+.pic span {
+  display: none; /* fallback letter, shown only if the picture fails to load */
+}
+.pic.fail span {
+  display: inline;
 }
 .pic img {
   position: absolute;
