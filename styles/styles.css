@@ -5,8 +5,9 @@
   --muted: #5f5f66;
   --line: #e2e2e6;
   --hover: #f3f3f5;
-  --pic-border: #c4c4cc;
-  --pic-bg: #dcdce2; /* profile picture backdrop: greyer than the page so the white eyes stand out */
+  --pic-border: #2a2a30;
+  --pic-bg: #000000;
+  --pic-shadow: 0 1px 2px rgba(0, 0, 0, 0.16), 0 4px 14px rgba(0, 0, 0, 0.24);
   --card: #ffffff; /* solid, so the waves never show through the cards */
   --glow: rgba(70, 80, 120, 0.12);
   --w1: rgba(110, 110, 125, 0.1); /* wave shades */
@@ -32,6 +33,7 @@
     --hover: #1a1a1e;
     --pic-border: #2a2a30;
     --pic-bg: #1a1a1e;
+    --pic-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.45);
     --card: #121214;
     --w1: rgba(255, 255, 255, 0.04);
     --w2: rgba(255, 255, 255, 0.07);
@@ -54,6 +56,7 @@
   --hover: #1a1a1e;
   --pic-border: #2a2a30;
   --pic-bg: #1a1a1e;
+  --pic-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.45);
   --card: #121214;
   --w1: rgba(255, 255, 255, 0.04);
   --w2: rgba(255, 255, 255, 0.07);
@@ -142,7 +145,7 @@ main {
   overflow: hidden;
   background: var(--pic-bg);
   border: 1px solid var(--pic-border);
-  box-shadow: var(--btn-shadow);
+  box-shadow: var(--pic-shadow);
   color: var(--muted);
   font-size: 2.2rem;
   font-weight: 600;
