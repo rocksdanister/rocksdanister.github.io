@@ -13,7 +13,11 @@
     return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   }
 
+  /* Narrow screens: no waves (CSS shows a plain gradient instead) */
+  var narrow = matchMedia("(max-width: 600px)");
+
   function resize() {
+    if (narrow.matches) return;
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var nw = document.documentElement.clientWidth || innerWidth;
     var nh = canvas.clientHeight || innerHeight; /* CSS uses the largest viewport, so bar show/hide doesn't change it */
@@ -75,7 +79,18 @@
   }
 
   var last = 0;
+  var running = false;
+  function start() {
+    if (reduceMotion || running || narrow.matches) return; /* narrow screens: no waves */
+    running = true;
+    last = 0;
+    requestAnimationFrame(loop);
+  }
   function loop(now) {
+    if (narrow.matches) {
+      running = false;
+      return;
+    }
     var dt = last ? Math.min((now - last) / 1000, 0.1) : 0.016;
     last = now;
     t += 0.016;
@@ -86,8 +101,13 @@
 
   addEventListener("resize", resize);
   matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
+  narrow.addEventListener("change", function () {
+    resize();
+    draw();
+    start();
+  });
   resize();
-  if (!reduceMotion) requestAnimationFrame(loop);
+  start();
 
   /* ---- Theme toggle: follows the system until the visitor picks one ---- */
   var root = document.documentElement;

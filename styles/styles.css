@@ -16,6 +16,7 @@
   --muted: #5f5f66;
   --line: #e2e2e6;
   --hover: #f3f3f5;
+  --grad-end: #cfcfd6; /* small screens: page gradient, lightest at the top and greyest at the bottom */
   --pic-border: #2a2a30;
   --pic-bg: #000000;
   --pic-shadow: 0 1px 2px rgba(0, 0, 0, 0.16), 0 4px 14px rgba(0, 0, 0, 0.24);
@@ -42,6 +43,7 @@
     --muted: #a0a0aa;
     --line: #2a2a30;
     --hover: #1a1a1e;
+    --grad-end: #2c2c31;
     --pic-border: #2a2a30;
     --pic-bg: #1a1a1e;
     --pic-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.45);
@@ -65,6 +67,7 @@
   --muted: #a0a0aa;
   --line: #2a2a30;
   --hover: #1a1a1e;
+  --grad-end: #2c2c31;
   --pic-border: #2a2a30;
   --pic-bg: #1a1a1e;
   --pic-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.45);
@@ -128,6 +131,18 @@ a:focus-visible {
   height: 100lvh; /* largest viewport: stays put while mobile browser bars show/hide on scroll */
   z-index: 0;
   pointer-events: none;
+}
+/* Small screens: no waves, a plain grey gradient instead (the grey shows in the gaps between the cards) */
+@media (max-width: 600px) {
+  #wall {
+    display: none;
+  }
+  html {
+    background: var(--bg) linear-gradient(180deg, var(--bg) 0%, var(--grad-end) 100%) no-repeat;
+  }
+  body {
+    background: transparent;
+  }
 }
 
 /* ---------- Layout ---------- */
@@ -219,9 +234,15 @@ h1 {
   border-radius: 8px;
   background: var(--btn-bg);
   box-shadow: var(--btn-shadow);
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 @media (hover: hover) {
   .btn:hover {
+    transform: translateY(-1px);
     background: var(--hover);
     border-color: var(--muted);
     box-shadow: var(--btn-shadow-hover);
@@ -252,9 +273,15 @@ h1 {
   box-shadow: var(--btn-shadow);
   color: var(--ink);
   cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 @media (hover: hover) {
   .theme-toggle:hover {
+    transform: translateY(-1px);
     background: var(--hover);
     border-color: var(--muted);
     box-shadow: var(--btn-shadow-hover);
@@ -307,14 +334,14 @@ h1 {
   border-radius: 12px;
   overflow: hidden;
   background: var(--card);
+  box-shadow: var(--shadow);
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
-     box-shadow: var(--shadow);
+    transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.5s ease;
 }
 .app:focus-visible {
-  transform: scale(1.03);
+  transform: scale(1.02);
   border-color: var(--glow);
   box-shadow: 0 0 14px 0 var(--glow), var(--shadow-hover);
   z-index: 2;
@@ -322,7 +349,7 @@ h1 {
 /* Hover effects only where a pointer can hover (touch screens would keep them stuck after a tap) */
 @media (hover: hover) {
   .app:hover {
-    transform: scale(1.03);
+    transform: scale(1.02);
     border-color: var(--glow);
     box-shadow: 0 0 14px 0 var(--glow), var(--shadow-hover);
     z-index: 2;
@@ -341,7 +368,7 @@ h1 {
   height: 100%;
   object-fit: cover;
   filter: grayscale(1);
-  transition: filter 0.2s ease;
+  transition: filter 0.6s ease;
 }
 .app:focus-visible .art {
   filter: none;
@@ -431,8 +458,15 @@ h1 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .app {
+  .app,
+  .art,
+  .btn,
+  .theme-toggle {
     transition: none;
+  }
+  .btn:hover,
+  .theme-toggle:hover {
+    transform: none;
   }
   .app:hover,
   .app:focus-visible {
