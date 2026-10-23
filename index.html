@@ -76,17 +76,14 @@
     <main>
       <div class="pic">
         <span aria-hidden="true">R</span>
-        <picture>
-          <source media="(prefers-reduced-motion: reduce)" srcset="assets/avatar-still.webp" />
-          <img
-            src="assets/avatar.webp"
-            alt="rocksdanister profile picture"
-            width="384"
-            height="384"
-            decoding="async"
-            onerror="this.closest('.pic').classList.add('fail'); this.remove()"
-          />
-        </picture>
+        <img
+          alt="rocksdanister profile picture"
+          width="360"
+          height="360"
+          decoding="async"
+          onerror="this.closest('.pic').classList.add('fail'); this.remove()"
+        />
+        <noscript><img src="assets/avatar-idle02-still.webp" alt="rocksdanister profile picture" width="360" height="360" /></noscript>
       </div>
       <h1>Hi, I’m Dani</h1>
       <p class="sub">I make fun software and stuff</p>

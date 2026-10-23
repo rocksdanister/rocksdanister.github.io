@@ -1,6 +1,11 @@
-/* Wave background + hover-to-play video */
+/* Random avatar, wave background, hover-to-play video */
 (function () {
   var reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- Avatar: pick one of the animations at random ---- */
+  var avatars = ["idle01", "idle02", "sit"];
+  document.querySelector(".pic img").src =
+    "assets/avatar-" + avatars[Math.floor(Math.random() * avatars.length)] + (reduceMotion ? "-still" : "") + ".webp";
 
   /* ---- Waves (greys / whites, colours come from CSS variables) ---- */
   var canvas = document.getElementById("wall");
