@@ -362,6 +362,14 @@ h1 {
   aspect-ratio: 16 / 9;
   border-bottom: 1px solid var(--line);
 }
+/* Soft shade at the bottom edge: separates the artwork from the text and lifts the badge */
+.media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0) 55%);
+  pointer-events: none;
+}
 .art {
   display: block;
   width: 100%;
@@ -403,6 +411,7 @@ h1 {
   position: absolute;
   bottom: 0.75rem;
   left: 0.75rem;
+  z-index: 1;
   padding: 2px 10px;
   border: 1px solid var(--line);
   border-radius: 6px;
