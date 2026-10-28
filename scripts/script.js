@@ -44,10 +44,20 @@
     var m = color.match(/[\d.]+/g);
     if (!m || m.length < 3) return color;
     var k = tint.k;
-    function mix(i) {
-      return Math.round(m[i] * (1 - k) + tint.rgb[i] * k);
+    var boost = parseFloat(cssVar("--tint-boost")) || 1; /* dark waves are faint, so tinting also strengthens them */
+    var alpha = m[3] === undefined ? 1 : +m[3];
+    function lerp(from, to) {
+      return from + (to - from) * k;
     }
-    return "rgba(" + mix(0) + "," + mix(1) + "," + mix(2) + "," + (m[3] || 1) + ")";
+    return (
+      "rgba(" +
+      [0, 1, 2].map(function (i) {
+        return Math.round(lerp(+m[i], tint.rgb[i]));
+      }) +
+      "," +
+      lerp(alpha, alpha * boost) +
+      ")"
+    );
   }
 
   function stepTint(dt) {
